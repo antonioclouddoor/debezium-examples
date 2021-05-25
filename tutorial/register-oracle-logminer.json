@@ -9,8 +9,13 @@
     "database.user" : "dbzuser",
     "database.password" : "dbz",
     "database.dbname" : "TEST",
+    "table.include.list": "ot.customers,ot.employees",
     "database.connection.adapter" : "logminer",
     "database.history.kafka.bootstrap.servers" : "kafka:9092",
-    "database.history.kafka.topic": "schema-changes.inventory"
+    "database.history.kafka.topic": "schema-changes.inventory",
+    "decimal.handling.mode" : "double",
+    "transforms" : "unwrap",
+    "transforms.unwrap.type" : "io.debezium.transforms.ExtractNewRecordState",
+    "transforms.unwrap.drop.tombstones" : "false"
   }
 }

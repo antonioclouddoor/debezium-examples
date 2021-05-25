@@ -1,0 +1,18 @@
+{
+    "name": "jdbc-sink",
+    "config": {
+        "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+        "tasks.max": "1",
+        "server":"vmoracle19cartest.eastus.cloudapp.azure.com",
+        "topics": "vmoracle19cartest.eastus.cloudapp.azure.com.OT.CUSTOMERS,vmoracle19cartest.eastus.cloudapp.azure.com.OT.EMPLOYEES",
+        "connection.url": "jdbc:postgresql://debeziumpostgreant.postgres.database.azure.com:5432/debezium01?user=azureuser@debeziumpostgreant&password=Madrid2020****&sslmode=require",        
+        "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+        "transforms.unwrap.drop.tombstones": "false",
+        "auto.create": "true",
+        "auto.evolve":"true",
+        "transforms":"dropPrefix",
+        "transforms.dropPrefix.type":"org.apache.kafka.connect.transforms.RegexRouter",
+        "transforms.dropPrefix.regex":"vmoracle19cartest.eastus.cloudapp.azure.com.OT.(.*)$",
+        "transforms.dropPrefix.replacement":"$1"     
+    }
+}

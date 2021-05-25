@@ -14,18 +14,10 @@ services:
      - zookeeper
     environment:
      - ZOOKEEPER_CONNECT=zookeeper:2181 
-  elastic:
-    image: docker.elastic.co/elasticsearch/elasticsearch:5.5.2
-    ports:
-      - "9200:9200"
-    environment:
-      - http.host=0.0.0.0
-      - transport.host=127.0.0.1
-      - xpack.security.enabled=false
   connect:
     image: debezium/connect-with-oracle-jdbc:1.4
     build:
-      context: debezium-with-oracle-jdbc
+      context: debezium-ora-es-pg
       args:
         DEBEZIUM_VERSION: 1.4
     ports:
@@ -43,19 +35,3 @@ services:
      - KAFKA_DEBUG=true
      - DEBUG_SUSPEND_FLAG=n
      - JAVA_DEBUG_PORT=0.0.0.0:5005
-  connectp:
-    image: debezium/connect-jdbc-es:1.4
-    build:
-      context: debezium-postgre-sink
-    ports:
-      - 8084:8083
-      - 5006:5005
-    links:
-      - kafka
-      - elastic
-    environment:
-      - BOOTSTRAP_SERVERS=kafka:9092
-      - GROUP_ID=1
-      - CONFIG_STORAGE_TOPIC=my_connect_configs
-      - OFFSET_STORAGE_TOPIC=my_connect_offsets
-      - STATUS_STORAGE_TOPIC=my_source_connect_statuses
