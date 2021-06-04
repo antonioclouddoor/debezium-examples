@@ -31,5 +31,3 @@ generated-sources/
 
 oracle_instantclient/
 db2data/
-register-jdbc-postgre-tables/
-*.json
