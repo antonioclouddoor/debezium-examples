@@ -1,0 +1,38 @@
+{
+
+    "name": "jdbc-sink-PRODUCT_CATEGORIES",
+
+    "config": {
+
+        "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+
+        "tasks.max": "1",
+
+        "server":"vmoracle19cartest.eastus.cloudapp.azure.com",
+
+        "topics": "vmoracle19cartest.eastus.cloudapp.azure.com.OT.PRODUCT_CATEGORIES",
+
+        "connection.url": "jdbc:postgresql://debeziumpostgreant.postgres.database.azure.com:5432/debezium01?user=azureuser@debeziumpostgreant&password=Madrid2020****&sslmode=require",
+
+        "transforms": "unwrap",
+
+        "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+
+        "transforms.unwrap.drop.tombstones": "false",
+
+        "auto.create": "true",
+
+        "insert.mode": "upsert",
+
+        "delete.enabled": "true",
+
+        "table.name.format":"PRODUCT_CATEGORIES",
+
+        "pk.fields": "CATEGORY_ID",
+
+        "pk.mode": "record_key"
+
+    }
+
+}
+

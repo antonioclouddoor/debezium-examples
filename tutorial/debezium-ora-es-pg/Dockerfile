@@ -15,6 +15,12 @@ RUN cd /kafka/libs && curl -sO https://jdbc.postgresql.org/download/postgresql-$
 RUN mkdir $KAFKA_CONNECT_JDBC_DIR && cd $KAFKA_CONNECT_JDBC_DIR &&\
 	curl -sO https://packages.confluent.io/maven/io/confluent/kafka-connect-jdbc/$KAFKA_JDBC_VERSION/kafka-connect-jdbc-$KAFKA_JDBC_VERSION.jar
 
+ARG JMX_AGENT_VERSION
+RUN mkdir /kafka/etc && cd /kafka/etc &&\
+        curl -so jmx_prometheus_javaagent.jar \
+        https://repo1.maven.org/maven2/io/prometheus/jmx/jmx_prometheus_javaagent/$JMX_AGENT_VERSION/jmx_prometheus_javaagent-$JMX_AGENT_VERSION.jar
+
+COPY config.yml /kafka/etc/config.yml
 # Deploy Confluent Elasticsearch sink connector
 #RUN mkdir $KAFKA_CONNECT_ES_DIR && cd $KAFKA_CONNECT_ES_DIR &&\
 #       curl -sO https://packages.confluent.io/maven/io/confluent/kafka-connect-elasticsearch/$KAFKA_ELASTICSEARCH_VERSION/kafka-connect-elasticsearch-$KAFKA_ELASTICSEARCH_VERSION.jar && \
@@ -38,3 +44,4 @@ USER kafka
 COPY oracle_instantclient/* $INSTANT_CLIENT_DIR
 COPY oracle_instantclient/xstreams.jar /kafka/libs
 COPY oracle_instantclient/ojdbc8.jar /kafka/libs
+COPY oracle_instantclient/mssql-jdbc-9.2.1.jre8.jar /kafka/libs
